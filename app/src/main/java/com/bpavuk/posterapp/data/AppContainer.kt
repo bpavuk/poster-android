@@ -11,7 +11,7 @@ interface AppContainer {
     val defaultPosterRepository: PosterRepository
 }
 
-class FakeAppContainer: AppContainer {
+class MockedApiAppContainer: AppContainer {
     private val baseUrl = "https://poster.free.beeceptor.com/"
 
     @OptIn(ExperimentalSerializationApi::class)

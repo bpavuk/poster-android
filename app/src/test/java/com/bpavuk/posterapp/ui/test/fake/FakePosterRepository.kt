@@ -1,4 +1,4 @@
-package com.bpavuk.posterapp.data.fake
+package com.bpavuk.posterapp.ui.test.fake
 
 import com.bpavuk.posterapp.data.PosterRepository
 import com.bpavuk.posterapp.network.PosterApiInterface

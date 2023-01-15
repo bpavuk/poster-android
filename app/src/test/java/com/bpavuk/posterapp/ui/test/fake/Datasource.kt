@@ -1,4 +1,4 @@
-package com.bpavuk.posterapp.data.fake
+package com.bpavuk.posterapp.ui.test.fake
 
 import com.bpavuk.posterapp.model.Post
 
