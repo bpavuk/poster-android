@@ -8,5 +8,5 @@ interface PosterRepository {
 }
 
 class DefaultPosterRepository(private val posterApiInterface: PosterApiInterface): PosterRepository {
-    override suspend fun getOnlinePosts(): List<Post> = posterApiInterface.getPosts()
+    override suspend fun getOnlinePosts(): List<Post> = posterApiInterface.getPosts(0)
 }
