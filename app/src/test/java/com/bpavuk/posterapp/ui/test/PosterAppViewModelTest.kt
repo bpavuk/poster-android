@@ -28,6 +28,6 @@ class PosterAppViewModelTest {
     @Test
     fun viewModel_updatePosts_Success() = runTest {
         viewModel.updatePosts()
-        assertEquals(viewModel.uiState.postsList, repository.getOnlinePosts())
+        assertEquals(viewModel.uiState.postsList, repository.getOnlinePosts(0))
     }
 }

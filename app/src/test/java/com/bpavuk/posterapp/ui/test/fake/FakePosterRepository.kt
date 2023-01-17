@@ -5,5 +5,5 @@ import com.bpavuk.posterapp.network.PosterApiInterface
 import com.bpavuk.posterapp.model.Post
 
 class FakePosterRepository(private val posterApiInterface: PosterApiInterface) : PosterRepository {
-    override suspend fun getOnlinePosts(): List<Post> = posterApiInterface.getPosts(0)
+    override suspend fun getOnlinePosts(lastPostId: Int): List<Post> = posterApiInterface.getPosts(lastPostId, 5)
 }

@@ -28,7 +28,7 @@ class PosterRepositoryTest {
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun repository_getOnlinePosts_Success() = runTest {
-        val postsList = repository.getOnlinePosts()
+        val postsList = repository.getOnlinePosts(0)
         assertEquals(postsList, Datasource.fakePosts)
     }
 }
