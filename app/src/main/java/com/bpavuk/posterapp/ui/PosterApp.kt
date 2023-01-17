@@ -11,13 +11,16 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -84,7 +87,8 @@ fun PostCard(post: Post, modifier: Modifier = Modifier) {
                 .heightIn(100.dp, 560.dp)
                 .wrapContentHeight()
         ) {
-            Box(modifier = Modifier.heightIn(100.dp, 540.dp)) {
+            Box(modifier = Modifier.heightIn(100.dp, 540.dp), contentAlignment = Alignment.Center) {
+                ImageLoadingProgressIndicator(color = MaterialTheme.colorScheme.primary)
                 AsyncImage(
                     model = ImageRequest
                         .Builder(LocalContext.current)
@@ -99,4 +103,9 @@ fun PostCard(post: Post, modifier: Modifier = Modifier) {
             post.text?.let { Text(text = it) }
         }
     }
+}
+
+@Composable
+fun ImageLoadingProgressIndicator(color: Color, modifier: Modifier = Modifier) {
+    CircularProgressIndicator(color = color, modifier = modifier)
 }

@@ -12,7 +12,7 @@ interface AppContainer {
 }
 
 class MockedApiAppContainer: AppContainer {
-    private val baseUrl = "https://127.0.0.1:3001/"
+    private val baseUrl = "https://127.0.0.1:3001/" // Poster API
 
     @OptIn(ExperimentalSerializationApi::class)
     private val retrofit = Retrofit.Builder()
