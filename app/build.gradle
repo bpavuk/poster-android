@@ -69,8 +69,9 @@ dependencies {
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
-    // Kotlin serialization
+    // Kotlin-to-Json serialization
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0"
+    implementation "io.github.xn32:json5k:0.2.1"
     // Coil
     implementation "io.coil-kt:coil:$coil_version"
     implementation "io.coil-kt:coil-compose:$coil_version"
