@@ -3,6 +3,7 @@ package com.bpavuk.posterapp.ui
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -65,10 +66,13 @@ fun PostCardsList(
                 post = post,
                 modifier = when (windowWidthSizeClass) {
                     WindowWidthSizeClass.Compact -> {
-                        Modifier.fillMaxWidth()
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(PaddingValues(horizontal = 16.dp))
                     }
                     else -> {
                         Modifier
+                            .padding(PaddingValues(horizontal = 16.dp))
                             .width(600.dp)
                             .fillMaxWidth()
                     }
