@@ -6,5 +6,8 @@ import retrofit2.http.Query
 
 interface PosterApiInterface {
     @GET("posts")
-    suspend fun getPosts(@Query("from") lastPostId: Int, @Query("limit") posts: Int): List<Post>
+    suspend fun getPosts(
+        @Query("from") lastPostId: Int,
+        @Query("limit") posts: Int
+    ): List<Post>
 }

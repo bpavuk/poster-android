@@ -6,6 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Post(
     val id: Int,
+    @SerialName("author_id") val authorId: Int,
     val text: String? = null,
     @SerialName("img_url") val imgURL: String
 )
