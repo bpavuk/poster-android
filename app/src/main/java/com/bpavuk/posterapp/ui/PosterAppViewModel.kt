@@ -14,17 +14,20 @@ class PosterAppViewModel(private val posterRepository: PosterRepository): ViewMo
         private set
 
     init {
-        updatePosts()
+        updatePosts(includeFirst = true)
     }
 
-    fun updatePosts(lastPost: Int = 0) {
+    fun updatePosts(lastPost: Int = 0, includeFirst: Boolean = false) {
         viewModelScope.launch {
             uiState = uiState.copy(
                 postsList = uiState
                     .postsList
                     .plus(
-                        posterRepository.getOnlinePosts(lastPost)
-                    ).distinct()
+                        with(posterRepository.getOnlinePosts(lastPost)) {
+                            if (includeFirst) this
+                            else this.subList(1, this.lastIndex)
+                        }
+                    )
             )
             uiState.postsList.forEach { getAuthorOfPostById(it.authorId, it.id) }
         }
