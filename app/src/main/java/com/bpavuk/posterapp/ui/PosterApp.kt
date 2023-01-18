@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -45,10 +46,10 @@ fun PosterApp(
         PostCardsList(
             postsList = uiState.postsList,
             windowWidthSizeClass = windowWidthSizeClass,
+            onReachedEnd = { viewModel.updatePosts(it) },
             modifier = modifier
                 .padding(paddingValues)
-                .fillMaxWidth(),
-            listUpdater = { viewModel.updatePosts(it) }
+                .fillMaxWidth()
         )
     }
 }
@@ -57,15 +58,15 @@ fun PosterApp(
 fun PostCardsList(
     postsList: List<Post>,
     windowWidthSizeClass: WindowWidthSizeClass,
-    modifier: Modifier = Modifier,
-    listUpdater: (Int) -> Unit
+    onReachedEnd: (Int) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     LazyColumn(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        items(postsList) { post ->
+        items(postsList, key = { it.id }) { post ->
             PostCard(
                 post = post,
                 modifier = when (windowWidthSizeClass) {
@@ -86,7 +87,7 @@ fun PostCardsList(
         item {
             if (postsList.isNotEmpty()) {
                 LaunchedEffect(postsList) {
-                    listUpdater(postsList.last().id)
+                    onReachedEnd(postsList.last().id)
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -105,6 +106,11 @@ fun PostCard(post: Post, modifier: Modifier = Modifier) {
                 .heightIn(100.dp, 560.dp)
                 .wrapContentHeight()
         ) {
+            if (post.author != null) {
+                Row {
+                    Text(text = post.author!!.userName)
+                }
+            }
             Box(modifier = Modifier.heightIn(100.dp, 540.dp), contentAlignment = Alignment.Center) {
                 ImageLoadingProgressIndicator()
                 AsyncImage(
