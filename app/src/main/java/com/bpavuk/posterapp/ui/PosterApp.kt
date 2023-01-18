@@ -19,6 +19,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -45,7 +46,8 @@ fun PosterApp(
             windowWidthSizeClass = windowWidthSizeClass,
             modifier = modifier
                 .padding(paddingValues)
-                .fillMaxWidth()
+                .fillMaxWidth(),
+            listUpdater = { viewModel.updatePosts(it) }
         )
     }
 }
@@ -54,7 +56,8 @@ fun PosterApp(
 fun PostCardsList(
     postsList: List<Post>,
     windowWidthSizeClass: WindowWidthSizeClass,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    listUpdater: (Int) -> Unit
 ) {
     LazyColumn(
         modifier = modifier,
@@ -78,6 +81,13 @@ fun PostCardsList(
                     }
                 }
             )
+        }
+        item {
+            if (postsList.isNotEmpty()) {
+                LaunchedEffect(postsList) {
+                    listUpdater(postsList.last().id)
+                }
+            }
         }
     }
 }

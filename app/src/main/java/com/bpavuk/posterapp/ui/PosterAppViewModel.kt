@@ -17,9 +17,15 @@ class PosterAppViewModel(private val posterRepository: PosterRepository): ViewMo
         updatePosts()
     }
 
-    fun updatePosts() {
+    fun updatePosts(lastPost: Int = 0) {
         viewModelScope.launch {
-            uiState = uiState.copy(postsList = posterRepository.getOnlinePosts(0))
+            uiState = uiState.copy(
+                postsList = uiState
+                    .postsList
+                    .plus(
+                        posterRepository.getOnlinePosts(lastPost)
+                    ).distinct()
+            )
         }
     }
 }
