@@ -1,0 +1,8 @@
+<network-security-config>
+    <debug-overrides>
+        <trust-anchors>
+            <!-- Trust preinstalled CAs -->
+            <certificates src="system" />
+        </trust-anchors>
+    </debug-overrides>
+</network-security-config>
