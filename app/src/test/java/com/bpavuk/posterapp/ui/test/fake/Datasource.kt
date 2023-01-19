@@ -7,21 +7,25 @@ object Datasource {
     val fakePosts = listOf(
         Post(
             id = 0,
+            authorId = 0,
             text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             imgURL = "https://picsum.photos/seed/kittens/${(400..1920).random()}/${(400..1920).random()}"
         ),
         Post(
             id = 1,
+            authorId = 1,
             text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             imgURL = "https://picsum.photos/seed/mascaloona/${(400..1920).random()}/${(400..1920).random()}"
         ),
         Post(
             id = 2,
+            authorId = 0,
             text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             imgURL = "https://picsum.photos/seed/doggy/${(400..1920).random()}/${(400..1920).random()}"
         ),
         Post(
             id = 3,
+            authorId = 2,
             text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             imgURL = "https://picsum.photos/seed/kittens/${(400..1920).random()}/${(400..1920).random()}"
         )
