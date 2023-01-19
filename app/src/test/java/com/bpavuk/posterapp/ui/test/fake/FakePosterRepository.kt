@@ -7,7 +7,5 @@ import com.bpavuk.posterapp.model.User
 
 class FakePosterRepository(private val posterApiInterface: PosterApiInterface) : PosterRepository {
     override suspend fun getOnlinePosts(lastPostId: Int): List<Post> = posterApiInterface.getPosts(lastPostId, 5)
-    override suspend fun getUser(userId: Int): User {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getUser(userId: Int): User = posterApiInterface.getUserById(userId)
 }
