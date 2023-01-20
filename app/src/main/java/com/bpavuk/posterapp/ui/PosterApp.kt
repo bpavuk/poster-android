@@ -134,7 +134,7 @@ fun PostCard(post: Post, modifier: Modifier = Modifier) {
                     modifier = Modifier.fillMaxWidth()
                 )
             }
-            post.text?.let { Text(text = it) }
+            Text(text = post.text)
         }
     }
 }
