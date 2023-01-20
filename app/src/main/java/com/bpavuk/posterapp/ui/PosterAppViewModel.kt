@@ -33,25 +33,7 @@ class PosterAppViewModel(private val posterRepository: PosterRepository): ViewMo
                         }
                     )
             )
-            uiState.postsList.forEach { getAuthorOfPostById(it.authorId, it.id) }
         }
-    }
-
-    private suspend fun getAuthorOfPostById(userId: Int, postId: Int) {
-        val updatedPost = uiState.postsList.first {
-            it.id == postId
-        }.apply {
-            author = posterRepository.getUser(userId)
-        }
-
-        val updatedList = uiState.postsList.toMutableList()
-        with(updatedList) {
-            this[indexOf(first { it.id == postId })] = updatedPost
-        }
-
-        uiState = uiState.copy(
-            postsList = updatedList.toList()
-        )
     }
 }
 
