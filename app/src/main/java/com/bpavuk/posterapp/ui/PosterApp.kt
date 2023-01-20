@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
@@ -25,6 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -106,7 +108,17 @@ fun PostCard(post: Post, modifier: Modifier = Modifier) {
                 .heightIn(100.dp, 560.dp)
                 .wrapContentHeight()
         ) {
-            Row {
+            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(16.dp)) {
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(post.author.profileImgUrl)
+                        .build(),
+                    contentDescription = post.author.userName,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.width(32.dp)
+                        .aspectRatio(1f)
+                        .clip(shape = MaterialTheme.shapes.extraLarge),
+                )
                 Text(text = post.author.userName)
             }
             Box(modifier = Modifier.heightIn(100.dp, 540.dp), contentAlignment = Alignment.Center) {
