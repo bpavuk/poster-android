@@ -106,10 +106,8 @@ fun PostCard(post: Post, modifier: Modifier = Modifier) {
                 .heightIn(100.dp, 560.dp)
                 .wrapContentHeight()
         ) {
-            if (post.author != null) {
-                Row {
-                    Text(text = post.author!!.userName)
-                }
+            Row {
+                Text(text = post.author.userName)
             }
             Box(modifier = Modifier.heightIn(100.dp, 540.dp), contentAlignment = Alignment.Center) {
                 ImageLoadingProgressIndicator()
