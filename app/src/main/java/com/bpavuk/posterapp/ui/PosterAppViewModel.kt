@@ -24,8 +24,12 @@ class PosterAppViewModel(private val posterRepository: PosterRepository): ViewMo
                     .postsList
                     .plus(
                         with(posterRepository.getOnlinePosts(lastPost)) {
-                            if (includeFirst) this
-                            else this.subList(1, this.lastIndex)
+                            if (this.size > 1) {
+                                if (includeFirst) this
+                                else this.subList(1, this.lastIndex)
+                            } else {
+                                emptyList()
+                            }
                         }
                     )
             )
