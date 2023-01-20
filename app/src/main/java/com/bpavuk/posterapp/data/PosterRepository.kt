@@ -10,6 +10,9 @@ interface PosterRepository {
 }
 
 class DefaultPosterRepository(private val posterApiInterface: PosterApiInterface): PosterRepository {
-    override suspend fun getOnlinePosts(lastPostId: Int): List<Post> = posterApiInterface.getPosts(lastPostId, 5)
-    override suspend fun getUser(userId: Int) = posterApiInterface.getUserById(userId)
+    override suspend fun getOnlinePosts(lastPostId: Int): List<Post> =
+        posterApiInterface.getPosts(lastPostId, 5)
+
+    override suspend fun getUser(userId: Int) =
+        posterApiInterface.getUserById(userId)
 }
