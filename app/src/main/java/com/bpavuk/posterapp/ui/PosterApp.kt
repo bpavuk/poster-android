@@ -1,5 +1,7 @@
 package com.bpavuk.posterapp.ui
 
+import androidx.compose.animation.core.animateIntAsState
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,6 +26,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -102,6 +108,10 @@ fun PostCardsList(
 
 @Composable
 fun PostCard(post: Post, modifier: Modifier = Modifier) {
+    var showFullText: Boolean by remember {
+        mutableStateOf(false)
+    }
+    val maxLines by animateIntAsState(targetValue = if (showFullText) 1000 else 2)
     Card(modifier = modifier) {
         Column(
             modifier = Modifier
@@ -116,13 +126,16 @@ fun PostCard(post: Post, modifier: Modifier = Modifier) {
                         .build(),
                     contentDescription = post.author.userName,
                     contentScale = ContentScale.Crop,
-                    modifier = Modifier.width(32.dp)
+                    modifier = Modifier
+                        .width(32.dp)
                         .aspectRatio(1f)
                         .clip(shape = MaterialTheme.shapes.extraLarge),
                 )
                 Text(text = post.author.userName)
             }
-            Box(modifier = Modifier.heightIn(100.dp, 600.dp).weight(1f), contentAlignment = Alignment.Center) {
+            Box(modifier = Modifier
+                .heightIn(100.dp, 600.dp)
+                .weight(1f), contentAlignment = Alignment.Center) {
                 ImageLoadingProgressIndicator()
                 AsyncImage(
                     model = ImageRequest
@@ -135,7 +148,12 @@ fun PostCard(post: Post, modifier: Modifier = Modifier) {
                     modifier = Modifier.fillMaxWidth()
                 )
             }
-            Text(text = post.text, maxLines = 2, overflow = TextOverflow.Ellipsis)
+            Text(
+                text = post.text,
+                maxLines = maxLines,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.clickable { showFullText = !showFullText }
+            )
         }
     }
 }
