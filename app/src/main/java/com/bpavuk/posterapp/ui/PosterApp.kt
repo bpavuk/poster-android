@@ -1,5 +1,6 @@
 package com.bpavuk.posterapp.ui
 
+import android.util.Log
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
