@@ -101,6 +101,7 @@ fun PostCardsList(
                     onReachedEnd(postsList.last().id)
                 }
             }
+            Log.d("fuckery", postsList.toString())
             Spacer(modifier = Modifier.height(16.dp))
             ImageLoadingProgressIndicator()
             Spacer(modifier = Modifier.height(16.dp))
