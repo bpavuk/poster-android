@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
@@ -134,7 +135,7 @@ fun PostCard(post: Post, modifier: Modifier = Modifier) {
                     modifier = Modifier.fillMaxWidth()
                 )
             }
-            Text(text = post.text)
+            Text(text = post.text, maxLines = 2, overflow = TextOverflow.Ellipsis)
         }
     }
 }
