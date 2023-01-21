@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
@@ -116,7 +117,7 @@ fun PostCard(post: Post, modifier: Modifier = Modifier) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(100.dp, 640.dp)
+                .defaultMinSize(minHeight = 160.dp)
                 .wrapContentHeight()
         ) {
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(16.dp)) {
@@ -134,8 +135,8 @@ fun PostCard(post: Post, modifier: Modifier = Modifier) {
                 Text(text = post.author.userName)
             }
             Box(modifier = Modifier
-                .heightIn(100.dp, 600.dp)
-                .weight(1f), contentAlignment = Alignment.Center) {
+                .heightIn(100.dp, 600.dp),
+                contentAlignment = Alignment.Center) {
                 ImageLoadingProgressIndicator()
                 AsyncImage(
                     model = ImageRequest
