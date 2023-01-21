@@ -105,7 +105,7 @@ fun PostCard(post: Post, modifier: Modifier = Modifier) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(100.dp, 560.dp)
+                .heightIn(100.dp, 640.dp)
                 .wrapContentHeight()
         ) {
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(16.dp)) {
@@ -121,7 +121,7 @@ fun PostCard(post: Post, modifier: Modifier = Modifier) {
                 )
                 Text(text = post.author.userName)
             }
-            Box(modifier = Modifier.heightIn(100.dp, 540.dp), contentAlignment = Alignment.Center) {
+            Box(modifier = Modifier.heightIn(100.dp, 600.dp).weight(1f), contentAlignment = Alignment.Center) {
                 ImageLoadingProgressIndicator()
                 AsyncImage(
                     model = ImageRequest
