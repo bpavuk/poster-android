@@ -21,7 +21,7 @@ fun PosterApp(
 
     Scaffold { paddingValues ->
         PostCardsList(
-            postsList = uiState.postsList,
+            uiState = uiState,
             windowWidthSizeClass = windowWidthSizeClass,
             onReachedEnd = { viewModel.updatePosts(it) },
             modifier = modifier
