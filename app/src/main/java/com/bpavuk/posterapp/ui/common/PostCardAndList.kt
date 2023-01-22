@@ -35,10 +35,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.bpavuk.posterapp.R
 import com.bpavuk.posterapp.model.Post
 import com.bpavuk.posterapp.ui.FetchingResult
 import com.bpavuk.posterapp.ui.PosterUiState
@@ -148,4 +150,9 @@ fun PostCard(post: Post, modifier: Modifier = Modifier) {
 @Composable
 fun ImageLoadingProgressIndicator(modifier: Modifier = Modifier) {
     CircularProgressIndicator(color = MaterialTheme.colorScheme.primary, modifier = modifier)
+}
+
+@Composable
+fun NoInternetScreen() {
+    Text(text = stringResource(id = R.string.internet_oops))
 }
