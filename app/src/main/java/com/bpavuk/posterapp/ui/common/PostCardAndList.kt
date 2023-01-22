@@ -40,14 +40,17 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.bpavuk.posterapp.model.Post
+import com.bpavuk.posterapp.ui.FetchingResult
+import com.bpavuk.posterapp.ui.PosterUiState
 
 @Composable
 fun PostCardsList(
-    postsList: List<Post>,
+    uiState: PosterUiState,
     windowWidthSizeClass: WindowWidthSizeClass,
     onReachedEnd: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val postsList = uiState.postsList
     LazyColumn(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(8.dp),
