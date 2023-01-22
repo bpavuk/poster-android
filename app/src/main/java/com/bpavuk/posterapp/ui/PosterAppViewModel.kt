@@ -10,7 +10,7 @@ import com.bpavuk.posterapp.model.Post
 import kotlinx.coroutines.launch
 
 class PosterAppViewModel(private val posterRepository: PosterRepository): ViewModel() {
-    var uiState by mutableStateOf(PosterUiState())
+    var uiState by mutableStateOf(PosterUiState(fetchingResult = FetchingResult.Loading))
         private set
 
     init {
