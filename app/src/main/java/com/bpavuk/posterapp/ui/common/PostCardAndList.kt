@@ -74,6 +74,11 @@ fun PostCardsList(
                 }
             )
         }
+        if (uiState.fetchingResult == FetchingResult.Error) {
+            item {
+                NoInternetScreen()
+            }
+        }
         item {
             if (postsList.isNotEmpty()) {
                 LaunchedEffect(postsList) {
