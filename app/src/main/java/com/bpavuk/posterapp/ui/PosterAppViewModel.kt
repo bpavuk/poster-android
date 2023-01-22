@@ -40,3 +40,9 @@ class PosterAppViewModel(private val posterRepository: PosterRepository): ViewMo
 data class PosterUiState(
     val postsList: List<Post> = emptyList()
 )
+
+sealed interface FetchingResult {
+    object Error: FetchingResult
+    object Loading: FetchingResult
+    object Success: FetchingResult
+}
