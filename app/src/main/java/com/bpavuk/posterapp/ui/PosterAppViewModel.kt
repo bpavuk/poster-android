@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.bpavuk.posterapp.data.PosterRepository
 import com.bpavuk.posterapp.model.Post
 import kotlinx.coroutines.launch
+import java.io.IOException
 
 class PosterAppViewModel(private val posterRepository: PosterRepository): ViewModel() {
     var uiState by mutableStateOf(PosterUiState(fetchingResult = FetchingResult.Loading))
@@ -19,20 +20,25 @@ class PosterAppViewModel(private val posterRepository: PosterRepository): ViewMo
 
     fun updatePosts(lastPost: Int = 0, includeFirst: Boolean = false) {
         viewModelScope.launch {
-            uiState = uiState.copy(
-                postsList = uiState
-                    .postsList
-                    .plus(
-                        with(posterRepository.getOnlinePosts(lastPost)) {
-                            if (this.size > 1) {
-                                if (includeFirst) this
-                                else this.subList(1, this.lastIndex)
-                            } else {
-                                emptyList()
+            try {
+                uiState = uiState.copy(
+                    postsList = uiState
+                        .postsList
+                        .plus(
+                            with(posterRepository.getOnlinePosts(lastPost)) {
+                                if (this.size > 1) {
+                                    if (includeFirst) this
+                                    else this.subList(1, this.lastIndex)
+                                } else {
+                                    emptyList()
+                                }
                             }
-                        }
-                    )
-            )
+                        ),
+                    fetchingResult = FetchingResult.Success
+                )
+            } catch (e: IOException) {
+                uiState = uiState.copy(fetchingResult = FetchingResult.Error)
+            }
         }
     }
 }
