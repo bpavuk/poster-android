@@ -55,7 +55,7 @@ fun PostCardsList(
     val postsList = uiState.postsList
     LazyColumn(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         items(postsList, key = { it.id }) { post ->
@@ -84,6 +84,7 @@ fun PostCardsList(
         item {
             if (postsList.isNotEmpty()) {
                 LaunchedEffect(postsList) {
+                    Log.d("fuckery", "last id ${postsList.last().id}")
                     onReachedEnd(postsList.last().id)
                 }
             }
@@ -101,7 +102,7 @@ fun PostCard(post: Post, modifier: Modifier = Modifier) {
         mutableStateOf(false)
     }
     val maxLines by animateIntAsState(targetValue = if (showFullText) 1000 else 2)
-    Card(modifier = modifier) {
+    Card(modifier = modifier.clip(MaterialTheme.shapes.extraLarge)) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -141,7 +142,9 @@ fun PostCard(post: Post, modifier: Modifier = Modifier) {
                 text = post.text,
                 maxLines = maxLines,
                 overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.clickable { showFullText = !showFullText }
+                modifier = Modifier
+                    .clickable { showFullText = !showFullText }
+                    .padding(16.dp)
             )
         }
     }
