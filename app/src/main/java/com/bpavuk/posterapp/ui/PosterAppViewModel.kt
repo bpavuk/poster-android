@@ -1,5 +1,6 @@
 package com.bpavuk.posterapp.ui
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -37,6 +38,7 @@ class PosterAppViewModel(private val posterRepository: PosterRepository): ViewMo
                     fetchingResult = FetchingResult.Success
                 )
             } catch (e: IOException) {
+                Log.e("fuckery", e.message!!, e.cause)
                 uiState = uiState.copy(fetchingResult = FetchingResult.Error)
             }
         }
