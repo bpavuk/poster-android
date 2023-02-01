@@ -14,25 +14,29 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bpavuk.posterapp.R
+import com.bpavuk.posterapp.ui.AppViewModelProvider
 import com.bpavuk.posterapp.ui.theme.PosterTheme
 
 @Composable
-fun LoginForm(modifier: Modifier = Modifier) {
-    Button(onClick = { /*TODO*/ }) {
+fun LoginForm(onLogin: () -> Unit, modifier: Modifier = Modifier) {
+    Button(onClick = onLogin) {
         Text(text = stringResource(id = R.string.login))
     }
 }
 
 @Composable
 fun LoginScreen(modifier: Modifier = Modifier) {
+    val viewModel: LoginScreenViewModel = viewModel(factory = AppViewModelProvider.Factory)
     Box(modifier = modifier) {
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            LoginForm()
+            LoginForm(onLogin = { viewModel.login() })
+            viewModel.uiState.token?.let { Text(text = it) }
         }
     }
 }
