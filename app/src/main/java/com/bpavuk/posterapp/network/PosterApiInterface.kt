@@ -1,10 +1,8 @@
 package com.bpavuk.posterapp.network
 
-import com.bpavuk.posterapp.model.AuthBody
 import com.bpavuk.posterapp.model.AuthResponse
 import com.bpavuk.posterapp.model.Post
 import com.bpavuk.posterapp.model.User
-import retrofit2.Call
 import retrofit2.http.*
 
 interface PosterApiInterface {
@@ -23,4 +21,7 @@ interface PosterApiInterface {
         @Field("username") username: String,
         @Field("password") password: String
     ): AuthResponse
+
+    @GET("users/me")
+    suspend fun getMe(@Header("Authorization") token: String): User
 }
