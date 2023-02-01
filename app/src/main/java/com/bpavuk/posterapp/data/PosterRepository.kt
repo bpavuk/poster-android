@@ -1,5 +1,7 @@
 package com.bpavuk.posterapp.data
 
+import com.bpavuk.posterapp.model.AuthBody
+import com.bpavuk.posterapp.model.AuthResponse
 import com.bpavuk.posterapp.model.Post
 import com.bpavuk.posterapp.model.User
 import com.bpavuk.posterapp.network.PosterApiInterface
@@ -7,6 +9,8 @@ import com.bpavuk.posterapp.network.PosterApiInterface
 interface PosterRepository {
     suspend fun getOnlinePosts(lastPostId: Int): List<Post>
     suspend fun getUser(userId: Int): User
+
+    suspend fun getToken(authBody: AuthBody): AuthResponse
 }
 
 class DefaultPosterRepository(private val posterApiInterface: PosterApiInterface): PosterRepository {
@@ -15,4 +19,7 @@ class DefaultPosterRepository(private val posterApiInterface: PosterApiInterface
 
     override suspend fun getUser(userId: Int) =
         posterApiInterface.getUserById(userId)
+
+    override suspend fun getToken(authBody: AuthBody): AuthResponse =
+        posterApiInterface.getToken(username = authBody.username, password = authBody.password)
 }
