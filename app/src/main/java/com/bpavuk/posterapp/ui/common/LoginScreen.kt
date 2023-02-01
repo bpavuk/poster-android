@@ -45,7 +45,10 @@ fun LoginScreen(modifier: Modifier = Modifier) {
 @Composable
 fun LoginScreenPreview() {
     PosterTheme {
-        Surface(modifier = Modifier.background(color = MaterialTheme.colorScheme.background)) {
+        Surface(modifier = Modifier
+            .background(color = MaterialTheme.colorScheme.background)
+            .fillMaxSize()
+        ) {
             LoginScreen()
         }
     }
