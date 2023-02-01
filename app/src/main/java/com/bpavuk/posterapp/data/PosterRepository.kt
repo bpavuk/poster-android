@@ -11,6 +11,8 @@ interface PosterRepository {
     suspend fun getUser(userId: Int): User
 
     suspend fun getToken(authBody: AuthBody): AuthResponse
+
+    suspend fun getMe(token: String): User
 }
 
 class DefaultPosterRepository(private val posterApiInterface: PosterApiInterface): PosterRepository {
@@ -22,4 +24,7 @@ class DefaultPosterRepository(private val posterApiInterface: PosterApiInterface
 
     override suspend fun getToken(authBody: AuthBody): AuthResponse =
         posterApiInterface.getToken(username = authBody.username, password = authBody.password)
+
+    override suspend fun getMe(token: String): User =
+        posterApiInterface.getMe(token)
 }
