@@ -1,28 +1,48 @@
 package com.bpavuk.posterapp.ui.common
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bpavuk.posterapp.R
 import com.bpavuk.posterapp.ui.AppViewModelProvider
 import com.bpavuk.posterapp.ui.theme.PosterTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginForm(onLogin: () -> Unit, modifier: Modifier = Modifier) {
-    Button(onClick = onLogin) {
-        Text(text = stringResource(id = R.string.login))
+fun LoginForm(
+    onLogin: () -> Unit,
+    onUsernameInput: (String) -> Unit,
+    uiState: LoginScreenUiState
+) {
+    OutlinedTextField(
+        value = uiState.username,
+        onValueChange = onUsernameInput,
+        label = { Text(text = stringResource(id = R.string.username)) },
+        singleLine = true,
+        keyboardActions = KeyboardActions(onDone = { onLogin() }),
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done)
+    )
+    Spacer(modifier = Modifier.size(16.dp))
+    Button(
+        onClick = onLogin,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Text(
+            text = stringResource(id = R.string.login),
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentSize()
+        )
     }
 }
 
