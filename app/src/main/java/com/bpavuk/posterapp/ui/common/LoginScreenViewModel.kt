@@ -13,13 +13,12 @@ class LoginScreenViewModel(private val posterRepository: PosterRepository): View
     var uiState by mutableStateOf(LoginScreenUiState())
 
     fun login() = viewModelScope.launch {
-        val username = "amandagibbs"
         val password = "fuckery"
 
         uiState = uiState.copy(
             token = posterRepository.getToken(
                 authBody = AuthBody(
-                    username = username,
+                    username = uiState.username,
                     password = password
                 )
             ).token
