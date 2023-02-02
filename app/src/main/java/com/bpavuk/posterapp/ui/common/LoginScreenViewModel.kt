@@ -34,5 +34,6 @@ class LoginScreenViewModel(private val posterRepository: PosterRepository): View
 
 data class LoginScreenUiState(
     val token: String? = null,
-    val username: String = ""
+    val username: String = "",
+    val password: String = ""
 )
