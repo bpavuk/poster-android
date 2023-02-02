@@ -3,4 +3,5 @@
     <string name="internet_oops">oopsie whoopsie uwu internet made a fucky wucky</string>
     <string name="login">Log in</string>
     <string name="username">Username</string>
+    <string name="password">Password</string>
 </resources>
