@@ -24,6 +24,12 @@ class LoginScreenViewModel(private val posterRepository: PosterRepository): View
             ).token
         )
     }
+
+    fun inputUsername(username: String) {
+        uiState = uiState.copy(
+            username = username
+        )
+    }
 }
 
 data class LoginScreenUiState(
