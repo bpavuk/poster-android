@@ -33,6 +33,15 @@ fun LoginForm(
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done)
     )
     Spacer(modifier = Modifier.size(16.dp))
+    OutlinedTextField(
+        value = uiState.password,
+        onValueChange = onPasswordInput,
+        label = { Text(text = stringResource(id = R.string.password)) },
+        singleLine = true,
+        keyboardActions = KeyboardActions(onDone = { onLogin() }),
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done)
+    )
+    Spacer(modifier = Modifier.size(16.dp))
     Button(
         onClick = onLogin,
         modifier = Modifier.fillMaxWidth()
