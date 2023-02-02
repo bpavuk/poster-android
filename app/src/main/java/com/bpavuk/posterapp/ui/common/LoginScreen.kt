@@ -22,6 +22,7 @@ import com.bpavuk.posterapp.ui.theme.PosterTheme
 fun LoginForm(
     onLogin: () -> Unit,
     onUsernameInput: (String) -> Unit,
+    onPasswordInput: (String) -> Unit,
     uiState: LoginScreenUiState
 ) {
     OutlinedTextField(
@@ -69,6 +70,7 @@ fun LoginScreen(modifier: Modifier = Modifier) {
             LoginForm(
                 uiState = viewModel.uiState,
                 onUsernameInput = { viewModel.inputUsername(it) },
+                onPasswordInput = { viewModel.inputPassword(it) },
                 onLogin = { viewModel.login() }
             )
             viewModel.uiState.token?.let { Text(text = it) }
