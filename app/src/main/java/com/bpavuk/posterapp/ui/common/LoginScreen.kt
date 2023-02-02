@@ -49,11 +49,13 @@ fun LoginForm(
 @Composable
 fun LoginScreen(modifier: Modifier = Modifier) {
     val viewModel: LoginScreenViewModel = viewModel(factory = AppViewModelProvider.Factory)
-    Box(modifier = modifier) {
+    Box(modifier = modifier, contentAlignment = Alignment.Center) {
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 54.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
             LoginForm(
                 uiState = viewModel.uiState,
