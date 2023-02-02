@@ -8,6 +8,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,13 +27,14 @@ fun LoginForm(
     onPasswordInput: (String) -> Unit,
     uiState: LoginScreenUiState
 ) {
+    val focusManager = LocalFocusManager.current
     OutlinedTextField(
         value = uiState.username,
         onValueChange = onUsernameInput,
         label = { Text(text = stringResource(id = R.string.username)) },
         singleLine = true,
-        keyboardActions = KeyboardActions(onDone = { onLogin() }),
-        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done)
+        keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Down) }),
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
     )
     Spacer(modifier = Modifier.size(16.dp))
     OutlinedTextField(
