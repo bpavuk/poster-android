@@ -35,7 +35,10 @@ fun LoginForm(
         label = { Text(text = stringResource(id = R.string.username)) },
         singleLine = true,
         keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Down) }),
-        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
+        keyboardOptions = KeyboardOptions(
+            imeAction = ImeAction.Next,
+            keyboardType = KeyboardType.Ascii
+        )
     )
     Spacer(modifier = Modifier.size(16.dp))
     OutlinedTextField(
