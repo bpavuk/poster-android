@@ -55,7 +55,11 @@ fun LoginScreen(modifier: Modifier = Modifier) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            LoginForm(onLogin = { viewModel.login() })
+            LoginForm(
+                uiState = viewModel.uiState,
+                onUsernameInput = { viewModel.inputUsername(it) },
+                onLogin = { viewModel.login() }
+            )
             viewModel.uiState.token?.let { Text(text = it) }
         }
     }
