@@ -13,10 +13,12 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bpavuk.posterapp.R
+import com.bpavuk.posterapp.model.User
 import com.bpavuk.posterapp.ui.AppViewModelProvider
 import com.bpavuk.posterapp.ui.theme.PosterTheme
 
@@ -86,6 +88,14 @@ fun LoginScreen(modifier: Modifier = Modifier) {
             )
             viewModel.uiState.token?.let { Text(text = it) }
         }
+    }
+}
+
+@Composable
+fun UserCard(user: User) {
+    Card(modifier = Modifier.fillMaxWidth()) {
+        Text(text = user.userName)
+        Text(text = "id: ${user.id}")
     }
 }
 
