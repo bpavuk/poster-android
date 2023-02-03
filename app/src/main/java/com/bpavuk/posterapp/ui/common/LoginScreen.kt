@@ -86,7 +86,10 @@ fun LoginScreen(modifier: Modifier = Modifier) {
                 onPasswordInput = { viewModel.inputPassword(it) },
                 onLogin = { viewModel.login() }
             )
-            viewModel.uiState.token?.let { Text(text = it) }
+            viewModel.uiState.loggedInUser?.let {
+                Spacer(modifier = Modifier.size(16.dp))
+                UserCard(user = it)
+            }
         }
     }
 }
