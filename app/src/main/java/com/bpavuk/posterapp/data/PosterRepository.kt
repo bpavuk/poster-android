@@ -26,5 +26,5 @@ class DefaultPosterRepository(private val posterApiInterface: PosterApiInterface
         posterApiInterface.getToken(username = authBody.username, password = authBody.password)
 
     override suspend fun getMe(token: String): User =
-        posterApiInterface.getMe(token)
+        posterApiInterface.getMe("Bearer $token")
 }
