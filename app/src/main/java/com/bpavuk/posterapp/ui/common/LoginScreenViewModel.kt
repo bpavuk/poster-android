@@ -7,10 +7,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bpavuk.posterapp.data.PosterRepository
 import com.bpavuk.posterapp.model.AuthBody
+import com.bpavuk.posterapp.model.User
 import kotlinx.coroutines.launch
 
 class LoginScreenViewModel(private val posterRepository: PosterRepository): ViewModel() {
     var uiState by mutableStateOf(LoginScreenUiState())
+
+    private suspend fun getUser(): User? {
+        return uiState.token?.let { posterRepository.getMe(token = it) }
+    }
 
     fun login() = viewModelScope.launch {
         uiState = uiState.copy(
@@ -20,6 +25,9 @@ class LoginScreenViewModel(private val posterRepository: PosterRepository): View
                     password = uiState.password
                 )
             ).token
+        )
+        uiState = uiState.copy(
+            loggedInUser = getUser()
         )
     }
 
@@ -39,5 +47,6 @@ class LoginScreenViewModel(private val posterRepository: PosterRepository): View
 data class LoginScreenUiState(
     val token: String? = null,
     val username: String = "",
-    val password: String = ""
+    val password: String = "",
+    val loggedInUser: User? = null
 )
