@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 
 class LoginScreenViewModel(private val posterRepository: PosterRepository): ViewModel() {
     var uiState by mutableStateOf(LoginScreenUiState())
+        private set
 
     private suspend fun getUser(): User? {
         return uiState.token?.let { posterRepository.getMe(token = it) }
