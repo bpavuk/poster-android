@@ -9,6 +9,7 @@ import com.bpavuk.posterapp.data.PosterRepository
 import com.bpavuk.posterapp.model.AuthBody
 import com.bpavuk.posterapp.model.User
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 class LoginScreenViewModel(private val posterRepository: PosterRepository): ViewModel() {
     var uiState by mutableStateOf(LoginScreenUiState())
@@ -19,17 +20,23 @@ class LoginScreenViewModel(private val posterRepository: PosterRepository): View
     }
 
     fun login() = viewModelScope.launch {
-        uiState = uiState.copy(
-            token = posterRepository.getToken(
-                authBody = AuthBody(
-                    username = uiState.username,
-                    password = uiState.password
-                )
-            ).token
-        )
-        uiState = uiState.copy(
-            loggedInUser = getUser()
-        )
+        try {
+            uiState = uiState.copy(
+                token = posterRepository.getToken(
+                    authBody = AuthBody(
+                        username = uiState.username,
+                        password = uiState.password
+                    )
+                ).token
+            )
+            uiState = uiState.copy(
+                loggedInUser = getUser()
+            )
+        } catch (e: HttpException) {
+            uiState = uiState.copy(
+                error = HttpError(code = e.code(), e.message())
+            )
+        }
     }
 
     fun inputUsername(username: String) {
