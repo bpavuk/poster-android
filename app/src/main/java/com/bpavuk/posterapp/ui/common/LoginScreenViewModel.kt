@@ -49,7 +49,8 @@ data class LoginScreenUiState(
     val token: String? = null,
     val username: String = "",
     val password: String = "",
-    val loggedInUser: User? = null
+    val loggedInUser: User? = null,
+    val error: HttpError? = null
 )
 
 data class HttpError(
