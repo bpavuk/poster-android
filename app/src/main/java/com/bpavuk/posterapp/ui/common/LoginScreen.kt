@@ -54,7 +54,8 @@ fun LoginForm(
             imeAction = ImeAction.Done,
             keyboardType = KeyboardType.Password
         ),
-        visualTransformation = PasswordVisualTransformation()
+        visualTransformation = PasswordVisualTransformation(),
+        isError = uiState.error != null
     )
     Spacer(modifier = Modifier.size(16.dp))
     Button(
