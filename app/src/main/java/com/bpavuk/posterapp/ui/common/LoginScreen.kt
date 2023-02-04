@@ -40,7 +40,8 @@ fun LoginForm(
         keyboardOptions = KeyboardOptions(
             imeAction = ImeAction.Next,
             keyboardType = KeyboardType.Ascii
-        )
+        ),
+        isError = uiState.error != null
     )
     Spacer(modifier = Modifier.size(16.dp))
     OutlinedTextField(
