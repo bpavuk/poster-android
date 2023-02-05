@@ -1,6 +1,6 @@
 package com.bpavuk.posterapp.ui.test
 
-import com.bpavuk.posterapp.ui.PosterAppViewModel
+import com.bpavuk.posterapp.ui.common.PostCardsListViewModel
 import com.bpavuk.posterapp.ui.test.fake.FakePosterApiInterface
 import com.bpavuk.posterapp.ui.test.fake.FakePosterRepository
 import com.bpavuk.posterapp.ui.test.rules.TestDispatcherRule
@@ -11,8 +11,8 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class PosterAppViewModelTest {
-    private lateinit var viewModel: PosterAppViewModel
+class PostCardsListViewModelTest {
+    private lateinit var viewModel: PostCardsListViewModel
     private lateinit var repository: FakePosterRepository
 
     @get:Rule
@@ -21,7 +21,7 @@ class PosterAppViewModelTest {
     @Before
     fun prepare() {
         repository = FakePosterRepository(FakePosterApiInterface)
-        viewModel = PosterAppViewModel(repository)
+        viewModel = PostCardsListViewModel(repository)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
