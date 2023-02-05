@@ -4,6 +4,9 @@ buildscript {
         lifecycle_version = "2.5.1"
         coil_version = "2.2.2"
     }
+    repositories {
+        google()
+    }
 }
 
 plugins {
