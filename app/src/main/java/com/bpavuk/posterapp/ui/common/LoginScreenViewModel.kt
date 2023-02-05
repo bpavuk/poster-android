@@ -36,6 +36,8 @@ class LoginScreenViewModel(
             uiState = uiState.copy(
                 loggedInUser = getUser()
             )
+            userLoginRepository.editUserName(userName = uiState.username)
+            userLoginRepository.editPassword(password = uiState.password)
         } catch (e: HttpException) {
             uiState = uiState.copy(
                 error = HttpError(code = e.code(), e.message())
