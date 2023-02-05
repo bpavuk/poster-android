@@ -15,9 +15,9 @@ class UserLoginRepository(
 ) {
 
     private companion object {
-        private val USER_NAME = stringPreferencesKey("user_name")
-        private val PASSWORD = stringPreferencesKey("password")
-        private const val TAG = "UserLoginRepo"
+        val USER_NAME = stringPreferencesKey("user_name")
+        val PASSWORD = stringPreferencesKey("password")
+        const val TAG = "UserLoginRepo"
     }
 
     val userName: Flow<String> = dataStore.data

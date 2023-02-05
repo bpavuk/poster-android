@@ -4,8 +4,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class AuthBody(
-    val username: String,
-    val password: String,
+    var username: String,
+    var password: String,
     val grant_type: String = "",
     val scope: String = "",
     val client_id: String = "",
