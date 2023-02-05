@@ -1,4 +1,4 @@
-package com.bpavuk.posterapp.ui
+package com.bpavuk.posterapp.ui.common
 
 import android.util.Log
 import androidx.compose.runtime.getValue
@@ -11,7 +11,7 @@ import com.bpavuk.posterapp.model.Post
 import kotlinx.coroutines.launch
 import java.io.IOException
 
-class PosterAppViewModel(private val posterRepository: PosterRepository): ViewModel() {
+class PostCardsListViewModel(private val posterRepository: PosterRepository): ViewModel() {
     var uiState by mutableStateOf(PosterUiState(fetchingResult = FetchingResult.Loading))
         private set
 
