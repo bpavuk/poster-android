@@ -6,11 +6,12 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.bpavuk.posterapp.PosterApplication
 import com.bpavuk.posterapp.ui.common.LoginScreenViewModel
+import com.bpavuk.posterapp.ui.common.PostCardsListViewModel
 
 object AppViewModelProvider {
     val Factory = viewModelFactory {
         initializer {
-            PosterAppViewModel(application().container.defaultPosterRepository)
+            PostCardsListViewModel(application().container.defaultPosterRepository)
         }
         initializer {
             LoginScreenViewModel(
