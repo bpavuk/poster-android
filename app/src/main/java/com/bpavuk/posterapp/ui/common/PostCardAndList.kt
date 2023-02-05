@@ -42,8 +42,6 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.bpavuk.posterapp.R
 import com.bpavuk.posterapp.model.Post
-import com.bpavuk.posterapp.ui.FetchingResult
-import com.bpavuk.posterapp.ui.PosterUiState
 
 @Composable
 fun PostCardsList(
