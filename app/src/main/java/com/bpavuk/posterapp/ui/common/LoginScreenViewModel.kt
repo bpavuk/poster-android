@@ -9,6 +9,7 @@ import com.bpavuk.posterapp.data.PosterRepository
 import com.bpavuk.posterapp.data.UserLoginRepository
 import com.bpavuk.posterapp.model.AuthBody
 import com.bpavuk.posterapp.model.User
+import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
@@ -18,6 +19,11 @@ class LoginScreenViewModel(
 ): ViewModel() {
     var uiState by mutableStateOf(LoginScreenUiState())
         private set
+
+    init {
+        fillUiStateFromDatastore()
+        login()
+    }
 
     private suspend fun getUser(): User? {
         return uiState.token?.let { posterRepository.getMe(token = it) }
@@ -43,6 +49,13 @@ class LoginScreenViewModel(
                 error = HttpError(code = e.code(), e.message())
             )
         }
+    }
+
+    private fun fillUiStateFromDatastore() = viewModelScope.launch {
+        uiState = uiState.copy(
+            username = userLoginRepository.userName.last(),
+            password = userLoginRepository.password.last()
+        )
     }
 
     fun inputUsername(username: String) {
