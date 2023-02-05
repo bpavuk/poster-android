@@ -13,7 +13,10 @@ object AppViewModelProvider {
             PosterAppViewModel(application().container.defaultPosterRepository)
         }
         initializer {
-            LoginScreenViewModel(application().container.defaultPosterRepository)
+            LoginScreenViewModel(
+                application().container.defaultPosterRepository,
+                application().container.defaultUserLoginRepository
+            )
         }
     }
 }
