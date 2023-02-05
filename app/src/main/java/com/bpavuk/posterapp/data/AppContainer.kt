@@ -1,5 +1,7 @@
 package com.bpavuk.posterapp.data
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import com.bpavuk.posterapp.network.PosterApiInterface
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import io.github.xn32.json5k.Json5
@@ -9,9 +11,10 @@ import retrofit2.Retrofit
 
 interface AppContainer {
     val defaultPosterRepository: PosterRepository
+    val defaultUserLoginRepository: UserLoginRepository
 }
 
-class MockedApiAppContainer: AppContainer {
+class MockedApiAppContainer(dataStore: DataStore<Preferences>): AppContainer {
     private val baseUrl = "https://127.0.0.1:3001/" // Poster API
 
     private val json = Json5 { prettyPrint = true }
@@ -26,5 +29,9 @@ class MockedApiAppContainer: AppContainer {
 
     override val defaultPosterRepository by lazy {
         DefaultPosterRepository(retrofitService)
+    }
+
+    override val defaultUserLoginRepository by lazy {
+        UserLoginRepository(dataStore = dataStore)
     }
 }
