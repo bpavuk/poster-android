@@ -6,12 +6,16 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bpavuk.posterapp.data.PosterRepository
+import com.bpavuk.posterapp.data.UserLoginRepository
 import com.bpavuk.posterapp.model.AuthBody
 import com.bpavuk.posterapp.model.User
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
-class LoginScreenViewModel(private val posterRepository: PosterRepository): ViewModel() {
+class LoginScreenViewModel(
+    private val posterRepository: PosterRepository,
+    private val userLoginRepository: UserLoginRepository
+): ViewModel() {
     var uiState by mutableStateOf(LoginScreenUiState())
         private set
 
