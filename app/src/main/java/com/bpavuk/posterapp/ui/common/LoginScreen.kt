@@ -22,6 +22,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bpavuk.posterapp.R
 import com.bpavuk.posterapp.model.User
 import com.bpavuk.posterapp.ui.AppViewModelProvider
+import com.bpavuk.posterapp.ui.common.viewmodels.LoginScreenUiState
+import com.bpavuk.posterapp.ui.common.viewmodels.LoginScreenViewModel
 import com.bpavuk.posterapp.ui.theme.PosterTheme
 
 @OptIn(ExperimentalMaterial3Api::class)

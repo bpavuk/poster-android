@@ -1,4 +1,4 @@
-package com.bpavuk.posterapp.ui.common
+package com.bpavuk.posterapp.ui.common.viewmodels
 
 import android.util.Log
 import androidx.compose.runtime.getValue

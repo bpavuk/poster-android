@@ -1,4 +1,4 @@
-package com.bpavuk.posterapp.ui.common
+package com.bpavuk.posterapp.ui.common.viewmodels
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

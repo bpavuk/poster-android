@@ -1,6 +1,6 @@
 package com.bpavuk.posterapp.ui.test
 
-import com.bpavuk.posterapp.ui.common.PostCardsListViewModel
+import com.bpavuk.posterapp.ui.common.viewmodels.PostCardsListViewModel
 import com.bpavuk.posterapp.ui.test.fake.FakePosterApiInterface
 import com.bpavuk.posterapp.ui.test.fake.FakePosterRepository
 import com.bpavuk.posterapp.ui.test.rules.TestDispatcherRule

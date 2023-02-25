@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bpavuk.posterapp.ui.AppViewModelProvider
+import com.bpavuk.posterapp.ui.common.viewmodels.PostCardsListViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

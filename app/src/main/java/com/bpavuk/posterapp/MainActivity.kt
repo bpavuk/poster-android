@@ -8,9 +8,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
-import androidx.compose.ui.Modifier
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
-import com.bpavuk.posterapp.ui.PosterApp
+import androidx.compose.ui.Modifier
+import com.bpavuk.posterapp.ui.common.PosterApp
 import com.bpavuk.posterapp.ui.theme.PosterTheme
 
 class MainActivity : ComponentActivity() {
