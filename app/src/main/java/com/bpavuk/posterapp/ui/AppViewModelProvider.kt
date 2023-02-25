@@ -5,8 +5,9 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.bpavuk.posterapp.PosterApplication
-import com.bpavuk.posterapp.ui.common.LoginScreenViewModel
-import com.bpavuk.posterapp.ui.common.PostCardsListViewModel
+import com.bpavuk.posterapp.ui.common.viewmodels.LoginScreenViewModel
+import com.bpavuk.posterapp.ui.common.viewmodels.PostCardsListViewModel
+import com.bpavuk.posterapp.ui.common.viewmodels.PosterAppViewModel
 
 object AppViewModelProvider {
     val Factory = viewModelFactory {
@@ -19,6 +20,7 @@ object AppViewModelProvider {
                 application().container.defaultUserLoginRepository
             )
         }
+        initializer { PosterAppViewModel() }
     }
 }
 
