@@ -24,7 +24,10 @@ fun PosterApp(
         WindowWidthSizeClass.Compact -> {
             Scaffold(
                 bottomBar = {
-                    BottomAppBar(onClick = { viewModel.changeScreen(it) })
+                    BottomAppBar(
+                        onClick = { viewModel.changeScreen(it) },
+                        activeButton = uiState.currentScreen
+                    )
                 },
                 modifier = modifier
             ) {
