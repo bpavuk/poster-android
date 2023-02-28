@@ -21,30 +21,25 @@ fun BottomAppBar(
     onClick: (PosterNavigation) -> Unit = {},
     activeButton: PosterNavigation
 ) {
-    NavigationBar {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(72.dp)
-                .background(color = MaterialTheme.colorScheme.surface)
-                .wrapContentSize(align = Alignment.Center)
-        ) {
-            for (i in PosterNavigation.values()) {
-                IconButton(
-                    onClick = { onClick(i) },
+    NavigationBar(
+        containerColor = MaterialTheme.colorScheme.surface,
+        tonalElevation = 16.dp
+    ) {
+        for (i in PosterNavigation.values()) {
+            IconButton(
+                onClick = { onClick(i) },
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight(),
+                interactionSource = NoRippleInteractionSource()
+            ) {
+                AppBarIcon(
+                    icon = i,
+                    isActive = activeButton == i,
                     modifier = Modifier
-                        .weight(1f)
-                        .fillMaxHeight(),
-                    interactionSource = NoRippleInteractionSource()
-                ) {
-                    AppBarIcon(
-                        icon = i,
-                        isActive = activeButton == i,
-                        modifier = Modifier
-                            .defaultMinSize(minWidth = 32.dp)
-                            .fillMaxHeight()
-                    )
-                }
+                        .defaultMinSize(minWidth = 32.dp)
+                        .fillMaxHeight()
+                )
             }
         }
     }
@@ -71,7 +66,7 @@ fun AppBarIcon(
                     color = if (isActive) {
                         MaterialTheme.colorScheme.secondaryContainer
                     } else {
-                        MaterialTheme.colorScheme.surface
+                        MaterialTheme.colorScheme.surfaceColorAtElevation(16.dp)
                     }
                 )
         ) {
