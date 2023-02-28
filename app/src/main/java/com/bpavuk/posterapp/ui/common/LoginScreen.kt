@@ -6,8 +6,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
@@ -34,8 +32,8 @@ fun LoginForm(
     onPasswordInput: (String) -> Unit,
     uiState: LoginScreenUiState
 ) {
-    val username by uiState.username.collectAsState(initial = "")
-    val password by uiState.password.collectAsState(initial = "")
+    val username = uiState.username
+    val password = uiState.password
     val focusManager = LocalFocusManager.current
 
     OutlinedTextField(
