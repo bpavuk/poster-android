@@ -12,6 +12,7 @@ import com.bpavuk.posterapp.model.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 class LoginScreenViewModel(
     private val posterRepository: PosterRepository,
@@ -19,17 +20,21 @@ class LoginScreenViewModel(
 ): ViewModel() {
     var uiState by mutableStateOf(
         LoginScreenUiState(
-            username = userLoginRepository.userName,
-            password = userLoginRepository.password
+            datastoreUsername = userLoginRepository.userName,
+            datastorePassword = userLoginRepository.password
         )
     )
     private set
 
-    fun login() {
+    init {
+        fillFromDatastore()
+    }
+
+    private fun fillFromDatastore() {
         viewModelScope.launch {
             val credentialsFlow = combine(
-                flow = uiState.username,
-                flow2 = uiState.password
+                flow = uiState.datastoreUsername,
+                flow2 = uiState.datastorePassword
             ) { username, password ->
                 buildMap {
                     this["username"] = username
@@ -37,16 +42,48 @@ class LoginScreenViewModel(
                 }
             }
             credentialsFlow.collect {
-                with(posterRepository) {
-                    uiState = uiState.copy(
-                        loggedInUser = getMe(
-                            getToken(
-                                AuthBody(
-                                    username = it["username"] ?: "",
-                                    password = it["password"] ?: ""
-                                )
-                            ).token
+                uiState = uiState.copy(
+                    username = it["username"] ?: "",
+                    password = it["password"] ?: ""
+                )
+            }
+        }
+    }
+
+    fun login() {
+        viewModelScope.launch {
+            with (userLoginRepository) {
+                editUserName(uiState.username)
+                editPassword(uiState.password)
+            }
+
+            val credentialsFlow = combine(
+                flow = uiState.datastoreUsername,
+                flow2 = uiState.datastorePassword
+            ) { username, password ->
+                buildMap {
+                    this["username"] = username
+                    this["password"] = password
+                }
+            }
+            credentialsFlow.collect {
+                try {
+                    with(posterRepository) {
+                        uiState = uiState.copy(
+                            loggedInUser = getMe(
+                                getToken(
+                                    AuthBody(
+                                        username = it["username"] ?: "",
+                                        password = it["password"] ?: ""
+                                    )
+                                ).token
+                            ),
+                            error = null
                         )
+                    }
+                } catch (e: HttpException) {
+                    uiState = uiState.copy(
+                        error = HttpError(code = e.code(), description = e.message())
                     )
                 }
             }
@@ -55,20 +92,22 @@ class LoginScreenViewModel(
 
     fun inputUsername(username: String) {
         viewModelScope.launch {
-            userLoginRepository.editUserName(username)
+            uiState = uiState.copy(username = username)
         }
     }
 
     fun inputPassword(password: String) {
         viewModelScope.launch {
-            userLoginRepository.editPassword(password)
+            uiState = uiState.copy(password = password)
         }
     }
 }
 
 data class LoginScreenUiState(
-    val username: Flow<String>,
-    val password: Flow<String>,
+    val username: String = "",
+    val password: String = "",
+    val datastoreUsername: Flow<String>,
+    val datastorePassword: Flow<String>,
     val loggedInUser: User? = null,
     val error: HttpError? = null
 )
