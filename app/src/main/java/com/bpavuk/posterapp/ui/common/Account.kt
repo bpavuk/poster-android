@@ -38,7 +38,10 @@ fun AccountCard(user: User) {
             .fillMaxWidth()
             .padding(16.dp)
     ) {
-        Surface(modifier = Modifier.padding(16.dp), color = MaterialTheme.colorScheme.primaryContainer) {
+        Surface(
+            modifier = Modifier.padding(16.dp),
+            color = MaterialTheme.colorScheme.primaryContainer
+        ) {
             Row {
                 AccountPhoto(
                     username = user.userName,
