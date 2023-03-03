@@ -13,6 +13,8 @@ interface PosterRepository {
     suspend fun getToken(authBody: AuthBody): AuthResponse
 
     suspend fun getMe(token: String): User
+
+    suspend fun getPostsByUser(lastPostId: Int, user: User): List<Post>
 }
 
 class DefaultPosterRepository(private val posterApiInterface: PosterApiInterface): PosterRepository {
@@ -27,4 +29,7 @@ class DefaultPosterRepository(private val posterApiInterface: PosterApiInterface
 
     override suspend fun getMe(token: String): User =
         posterApiInterface.getMe("Bearer $token")
+
+    override suspend fun getPostsByUser(lastPostId: Int, user: User): List<Post> =
+        posterApiInterface.getPosts(lastPostId = lastPostId, posts = 12, username = user.userName)
 }
