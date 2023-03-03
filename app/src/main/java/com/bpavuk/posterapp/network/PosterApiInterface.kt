@@ -9,7 +9,8 @@ interface PosterApiInterface {
     @GET("posts")
     suspend fun getPosts(
         @Query("start") lastPostId: Int,
-        @Query("limit") posts: Int
+        @Query("limit") posts: Int,
+        @Query("username") username: String? = null
     ): List<Post>
     @GET("user/{id}")
     suspend fun getUserById(@Path("id") userId: Int): User
