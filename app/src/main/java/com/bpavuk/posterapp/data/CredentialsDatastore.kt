@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 
-class UserLoginRepository(
+class CredentialsDatastore(
     private val dataStore: DataStore<Preferences>
 ) {
 

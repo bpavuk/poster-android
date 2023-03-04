@@ -5,8 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bpavuk.posterapp.data.CredentialsDatastore
 import com.bpavuk.posterapp.data.PosterRepository
-import com.bpavuk.posterapp.data.UserLoginRepository
 import com.bpavuk.posterapp.model.AuthBody
 import com.bpavuk.posterapp.model.User
 import kotlinx.coroutines.flow.Flow
@@ -16,12 +16,12 @@ import retrofit2.HttpException
 
 class LoginScreenViewModel(
     private val posterRepository: PosterRepository,
-    private val userLoginRepository: UserLoginRepository
+    private val credentialsDatastore: CredentialsDatastore
 ): ViewModel() {
     var uiState by mutableStateOf(
         LoginScreenUiState(
-            datastoreUsername = userLoginRepository.userName,
-            datastorePassword = userLoginRepository.password
+            datastoreUsername = credentialsDatastore.userName,
+            datastorePassword = credentialsDatastore.password
         )
     )
     private set
@@ -52,7 +52,7 @@ class LoginScreenViewModel(
 
     fun login() {
         viewModelScope.launch {
-            with (userLoginRepository) {
+            with (credentialsDatastore) {
                 editUserName(uiState.username)
                 editPassword(uiState.password)
             }

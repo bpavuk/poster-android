@@ -11,7 +11,7 @@ import retrofit2.Retrofit
 
 interface AppContainer {
     val defaultPosterRepository: PosterRepository
-    val defaultUserLoginRepository: UserLoginRepository
+    val defaultCredentialsDatastore: CredentialsDatastore
 }
 
 class MockedApiAppContainer(dataStore: DataStore<Preferences>): AppContainer {
@@ -34,7 +34,7 @@ class MockedApiAppContainer(dataStore: DataStore<Preferences>): AppContainer {
         DefaultPosterRepository(retrofitService)
     }
 
-    override val defaultUserLoginRepository by lazy {
-        UserLoginRepository(dataStore = dataStore)
+    override val defaultCredentialsDatastore by lazy {
+        CredentialsDatastore(dataStore = dataStore)
     }
 }
