@@ -39,7 +39,7 @@ fun PosterApp(
                         )
                     }
                     PosterNavigation.ME -> {
-                        LoginScreen()
+                        AccountScreen()
                     }
                 }
             }
