@@ -22,17 +22,17 @@ class PostCardsListViewModel(private val posterRepository: PosterRepository): Vi
     fun updatePosts(lastPost: Int = 0, includeFirst: Boolean = false) {
         viewModelScope.launch {
             try {
+                val uncheckedPostsList = posterRepository.getOnlinePosts(lastPost) ?: emptyList()
+
                 uiState = uiState.copy(
                     postsList = uiState
                         .postsList
                         .plus(
-                            with(posterRepository.getOnlinePosts(lastPost)) {
-                                if (this.size > 1) {
-                                    if (includeFirst) this
-                                    else this.subList(1, this.lastIndex)
-                                } else {
-                                    emptyList()
-                                }
+                            if (uncheckedPostsList.size > 1) {
+                                if (includeFirst) uncheckedPostsList
+                                else uncheckedPostsList.subList(1, uncheckedPostsList.lastIndex)
+                            } else {
+                                emptyList()
                             }
                         ),
                     fetchingResult = FetchingResult.Success
