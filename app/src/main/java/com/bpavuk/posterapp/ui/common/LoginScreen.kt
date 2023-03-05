@@ -1,6 +1,5 @@
 package com.bpavuk.posterapp.ui.common
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -14,15 +13,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bpavuk.posterapp.R
-import com.bpavuk.posterapp.model.User
 import com.bpavuk.posterapp.ui.AppViewModelProvider
 import com.bpavuk.posterapp.ui.common.viewmodels.LoginScreenUiState
 import com.bpavuk.posterapp.ui.common.viewmodels.LoginScreenViewModel
-import com.bpavuk.posterapp.ui.theme.PosterTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -77,7 +73,10 @@ fun LoginForm(
 }
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier) {
+fun LoginScreen(
+    modifier: Modifier = Modifier,
+    onSuccessfulLogin: () -> Unit
+) {
     val viewModel: LoginScreenViewModel = viewModel(factory = AppViewModelProvider.Factory)
     Box(modifier = modifier, contentAlignment = Alignment.Center) {
         Column(
@@ -93,31 +92,7 @@ fun LoginScreen(modifier: Modifier = Modifier) {
                 onPasswordInput = { viewModel.inputPassword(it) },
                 onLogin = { viewModel.login() }
             )
-            viewModel.uiState.loggedInUser?.let {
-                Spacer(modifier = Modifier.size(16.dp))
-                UserCard(user = it)
-            }
         }
-    }
-}
-
-@Composable
-fun UserCard(user: User) {
-    Card(modifier = Modifier.fillMaxWidth()) {
-        Text(text = user.userName)
-        Text(text = "id: ${user.id}")
-    }
-}
-
-@Preview
-@Composable
-fun LoginScreenPreview() {
-    PosterTheme {
-        Surface(modifier = Modifier
-            .background(color = MaterialTheme.colorScheme.background)
-            .fillMaxSize()
-        ) {
-            LoginScreen()
-        }
+        if (viewModel.uiState.loggedInUser != null) onSuccessfulLogin()
     }
 }
