@@ -23,7 +23,7 @@ class AccountScreenViewModel(
         updateInfo()
     }
 
-    private fun updateInfo() {
+    fun updateInfo() {
         viewModelScope.launch {
             uiState = UiState.Loading
             try {
