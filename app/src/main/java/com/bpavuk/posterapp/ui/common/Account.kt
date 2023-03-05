@@ -126,16 +126,3 @@ fun AccountScreen(
         }
     }
 }
-
-@Preview
-@Composable
-fun AccountsPreview() {
-    PosterTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
-        ) {
-            AccountScreen()
-        }
-    }
-}
