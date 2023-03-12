@@ -25,7 +25,7 @@ object AppViewModelProvider {
         initializer {
             AccountScreenViewModel(
                 application().container.defaultPosterRepository,
-                application().container.defaultAuthenticationRepository
+                application().container.defaultLoginUseCase
             )
         }
     }

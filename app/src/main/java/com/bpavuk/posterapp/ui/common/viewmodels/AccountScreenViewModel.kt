@@ -5,8 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bpavuk.posterapp.data.AuthenticationRepository
 import com.bpavuk.posterapp.data.PosterRepository
+import com.bpavuk.posterapp.domain.LoginUseCase
 import com.bpavuk.posterapp.model.Post
 import com.bpavuk.posterapp.model.User
 import kotlinx.coroutines.launch
@@ -14,7 +14,7 @@ import retrofit2.HttpException
 
 class AccountScreenViewModel(
     private val posterRepository: PosterRepository,
-    private val authenticationRepository: AuthenticationRepository
+    private val loginUseCase: LoginUseCase
 ): ViewModel() {
     var uiState: UiState by mutableStateOf(UiState.Loading)
         private set
@@ -27,10 +27,19 @@ class AccountScreenViewModel(
         viewModelScope.launch {
             uiState = UiState.Loading
             try {
-                authenticationRepository.getToken().collect {
-                    uiState = UiState.Success(
-                        user = posterRepository.getMe(it)
-                    )
+//                authenticationRepository.getToken().collect {
+//                    uiState = UiState.Success(
+//                        user = posterRepository.getMe(it)
+//                    )
+//                    uiState = (uiState as UiState.Success).copy(
+//                        postsList = posterRepository.getPostsByUser(
+//                            (uiState as UiState.Success).lastPostId,
+//                            user = (uiState as UiState.Success).user
+//                        )
+//                    )
+//                }
+                loginUseCase.getUser().collect {
+                    uiState = UiState.Success(user = it)
                     uiState = (uiState as UiState.Success).copy(
                         postsList = posterRepository.getPostsByUser(
                             (uiState as UiState.Success).lastPostId,
@@ -38,6 +47,7 @@ class AccountScreenViewModel(
                         )
                     )
                 }
+
             } catch (e: HttpException) {
                 uiState = UiState.Error(code = e.code())
             }
