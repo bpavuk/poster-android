@@ -25,17 +25,6 @@ class AccountScreenViewModel(
         viewModelScope.launch {
             uiState = UiState.Loading
             try {
-//                authenticationRepository.getToken().collect {
-//                    uiState = UiState.Success(
-//                        user = posterRepository.getMe(it)
-//                    )
-//                    uiState = (uiState as UiState.Success).copy(
-//                        postsList = posterRepository.getPostsByUser(
-//                            (uiState as UiState.Success).lastPostId,
-//                            user = (uiState as UiState.Success).user
-//                        )
-//                    )
-//                }
                 accountScreenUseCase.getUser().collect {
                     uiState = UiState.Success(user = it)
                     uiState = (uiState as UiState.Success).copy(
