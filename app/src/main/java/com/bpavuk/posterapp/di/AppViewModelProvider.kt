@@ -17,8 +17,7 @@ object AppViewModelProvider {
         }
         initializer {
             LoginScreenViewModel(
-                application().container.defaultPosterRepository,
-                application().container.defaultCredentialsDatastore
+                application().container.defaultLoginScreenUseCase
             )
         }
         initializer { PosterAppViewModel() }

@@ -8,6 +8,7 @@ import com.bpavuk.posterapp.data.PosterRepository
 import com.bpavuk.posterapp.domain.LoginUseCase
 import com.bpavuk.posterapp.domain.PostsUseCase
 import com.bpavuk.posterapp.domain.screenUseCases.AccountScreenUseCase
+import com.bpavuk.posterapp.domain.screenUseCases.LoginScreenUseCase
 import com.bpavuk.posterapp.network.PosterApiInterface
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -16,6 +17,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
 
 interface AppContainer {
+    val defaultLoginScreenUseCase: LoginScreenUseCase
     val defaultPosterRepository: PosterRepository
     val defaultCredentialsDatastore: CredentialsDatastore
     val defaultLoginUseCase: LoginUseCase
@@ -63,5 +65,8 @@ class MockedApiAppContainer(dataStore: DataStore<Preferences>): AppContainer {
             loginUseCase = defaultLoginUseCase,
             postsUseCase = defaultPostsUseCase
         )
+    }
+    override val defaultLoginScreenUseCase by lazy {
+        LoginScreenUseCase(loginUseCase = defaultLoginUseCase)
     }
 }

@@ -13,8 +13,8 @@ class LoginUseCase(
     private val posterRepository: PosterRepository,
     private val credentialsDatastore: CredentialsDatastore,
 ) {
-    suspend fun getToken(): Flow<String> = flow {
-        val credentialsFlow = combine(
+    private suspend fun getToken(): Flow<String> = flow {
+        val credentialFlow = combine(
             flow = credentialsDatastore.userName,
             flow2 = credentialsDatastore.password
         ) { username, password ->
@@ -24,7 +24,7 @@ class LoginUseCase(
             }
         }
 
-        credentialsFlow.collect {
+        credentialFlow.collect {
             val token = posterRepository.getToken(
                 authBody = AuthBody(
                     username = it["username"] ?: "",
@@ -43,4 +43,10 @@ class LoginUseCase(
         val tokenFlow = getToken()
         return tokenFlow.map { posterRepository.getMe(it) }
     }
+
+    fun getDatastoreUserName(): Flow<String> = credentialsDatastore.userName
+    fun getDatastorePassword(): Flow<String> = credentialsDatastore.password
+    suspend fun setDatastoreUserName(username: String) = credentialsDatastore.editUserName(username)
+    suspend fun setDatastorePassword(password: String) = credentialsDatastore.editPassword(password)
+
 }

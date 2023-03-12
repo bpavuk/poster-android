@@ -5,23 +5,19 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bpavuk.posterapp.data.CredentialsDatastore
-import com.bpavuk.posterapp.data.PosterRepository
-import com.bpavuk.posterapp.model.AuthBody
+import com.bpavuk.posterapp.domain.screenUseCases.LoginScreenUseCase
 import com.bpavuk.posterapp.model.User
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 class LoginScreenViewModel(
-    private val posterRepository: PosterRepository,
-    private val credentialsDatastore: CredentialsDatastore
+    private val loginScreenUseCase: LoginScreenUseCase
 ): ViewModel() {
     var uiState by mutableStateOf(
         LoginScreenUiState(
-            datastoreUsername = credentialsDatastore.userName,
-            datastorePassword = credentialsDatastore.password
+            datastoreUsername = loginScreenUseCase.getUserName(),
+            datastorePassword = loginScreenUseCase.getPassword()
         )
     )
     private set
@@ -32,16 +28,8 @@ class LoginScreenViewModel(
 
     private fun fillFromDatastore() {
         viewModelScope.launch {
-            val credentialsFlow = combine(
-                flow = uiState.datastoreUsername,
-                flow2 = uiState.datastorePassword
-            ) { username, password ->
-                buildMap {
-                    this["username"] = username
-                    this["password"] = password
-                }
-            }
-            credentialsFlow.collect {
+            val credentialFlow = loginScreenUseCase.getCredentialFlow()
+            credentialFlow.collect {
                 uiState = uiState.copy(
                     username = it["username"] ?: "",
                     password = it["password"] ?: ""
@@ -52,40 +40,21 @@ class LoginScreenViewModel(
 
     fun login() {
         viewModelScope.launch {
-            with (credentialsDatastore) {
+            with (loginScreenUseCase) {
                 editUserName(uiState.username)
                 editPassword(uiState.password)
             }
-
-            val credentialsFlow = combine(
-                flow = uiState.datastoreUsername,
-                flow2 = uiState.datastorePassword
-            ) { username, password ->
-                buildMap {
-                    this["username"] = username
-                    this["password"] = password
-                }
-            }
-            credentialsFlow.collect {
-                try {
-                    with(posterRepository) {
-                        uiState = uiState.copy(
-                            loggedInUser = getMe(
-                                getToken(
-                                    AuthBody(
-                                        username = it["username"] ?: "",
-                                        password = it["password"] ?: ""
-                                    )
-                                ).token
-                            ),
-                            error = null
-                        )
-                    }
-                } catch (e: HttpException) {
+            try {
+                with(loginScreenUseCase) {
                     uiState = uiState.copy(
-                        error = HttpError(code = e.code(), description = e.message())
+                        loggedInUser = getUser(),
+                        error = null
                     )
                 }
+            } catch (e: HttpException) {
+                uiState = uiState.copy(
+                    error = HttpError(code = e.code(), description = e.message())
+                )
             }
         }
     }
@@ -108,7 +77,7 @@ data class LoginScreenUiState(
     val password: String = "",
     val datastoreUsername: Flow<String>,
     val datastorePassword: Flow<String>,
-    val loggedInUser: User? = null,
+    val loggedInUser: Flow<User>? = null,
     val error: HttpError? = null
 )
 
