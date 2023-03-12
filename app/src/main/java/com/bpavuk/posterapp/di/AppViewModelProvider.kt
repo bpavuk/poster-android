@@ -1,4 +1,4 @@
-package com.bpavuk.posterapp.ui
+package com.bpavuk.posterapp.di
 
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras

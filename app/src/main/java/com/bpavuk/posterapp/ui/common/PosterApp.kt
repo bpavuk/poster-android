@@ -7,7 +7,7 @@ import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.bpavuk.posterapp.ui.AppViewModelProvider
+import com.bpavuk.posterapp.di.AppViewModelProvider
 import com.bpavuk.posterapp.ui.common.viewmodels.PosterAppViewModel
 import com.bpavuk.posterapp.ui.navigation.PosterNavigation
 

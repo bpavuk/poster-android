@@ -32,9 +32,9 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.bpavuk.posterapp.R
+import com.bpavuk.posterapp.di.AppViewModelProvider
 import com.bpavuk.posterapp.model.Post
 import com.bpavuk.posterapp.model.User
-import com.bpavuk.posterapp.ui.AppViewModelProvider
 import com.bpavuk.posterapp.ui.common.viewmodels.AccountScreenViewModel
 import com.bpavuk.posterapp.ui.common.viewmodels.UiState
 

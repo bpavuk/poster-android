@@ -16,7 +16,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bpavuk.posterapp.R
-import com.bpavuk.posterapp.ui.AppViewModelProvider
+import com.bpavuk.posterapp.di.AppViewModelProvider
 import com.bpavuk.posterapp.ui.common.viewmodels.LoginScreenUiState
 import com.bpavuk.posterapp.ui.common.viewmodels.LoginScreenViewModel
 

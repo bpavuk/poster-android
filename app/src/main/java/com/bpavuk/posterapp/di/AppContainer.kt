@@ -1,7 +1,11 @@
-package com.bpavuk.posterapp.data
+package com.bpavuk.posterapp.di
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import com.bpavuk.posterapp.data.AuthenticationRepository
+import com.bpavuk.posterapp.data.CredentialsDatastore
+import com.bpavuk.posterapp.data.DefaultPosterRepository
+import com.bpavuk.posterapp.data.PosterRepository
 import com.bpavuk.posterapp.network.PosterApiInterface
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.ExperimentalSerializationApi
