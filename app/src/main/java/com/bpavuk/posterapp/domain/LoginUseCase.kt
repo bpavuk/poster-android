@@ -1,11 +1,15 @@
-package com.bpavuk.posterapp.data
+package com.bpavuk.posterapp.domain
 
+import com.bpavuk.posterapp.data.CredentialsDatastore
+import com.bpavuk.posterapp.data.PosterRepository
 import com.bpavuk.posterapp.model.AuthBody
+import com.bpavuk.posterapp.model.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 
-class AuthenticationRepository(
+class LoginUseCase(
     private val posterRepository: PosterRepository,
     private val credentialsDatastore: CredentialsDatastore,
 ) {
@@ -29,5 +33,14 @@ class AuthenticationRepository(
             ).token
             emit(token)
         }
+    }
+
+    suspend fun getUser(token: String): Flow<User> = flow {
+        emit(posterRepository.getMe(token))
+    }
+
+    suspend fun getUser(): Flow<User> {
+        val tokenFlow = getToken()
+        return tokenFlow.map { posterRepository.getMe(it) }
     }
 }

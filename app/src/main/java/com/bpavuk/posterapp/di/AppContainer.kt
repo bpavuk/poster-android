@@ -2,10 +2,12 @@ package com.bpavuk.posterapp.di
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import com.bpavuk.posterapp.data.AuthenticationRepository
 import com.bpavuk.posterapp.data.CredentialsDatastore
 import com.bpavuk.posterapp.data.DefaultPosterRepository
 import com.bpavuk.posterapp.data.PosterRepository
+import com.bpavuk.posterapp.domain.LoginUseCase
+import com.bpavuk.posterapp.domain.PostsUseCase
+import com.bpavuk.posterapp.domain.screenUseCases.AccountScreenUseCase
 import com.bpavuk.posterapp.network.PosterApiInterface
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -16,7 +18,9 @@ import retrofit2.Retrofit
 interface AppContainer {
     val defaultPosterRepository: PosterRepository
     val defaultCredentialsDatastore: CredentialsDatastore
-    val defaultAuthenticationRepository: AuthenticationRepository
+    val defaultLoginUseCase: LoginUseCase
+    val defaultPostsUseCase: PostsUseCase
+    val defaultAccountScreenUseCase: AccountScreenUseCase
 }
 
 class MockedApiAppContainer(dataStore: DataStore<Preferences>): AppContainer {
@@ -43,7 +47,21 @@ class MockedApiAppContainer(dataStore: DataStore<Preferences>): AppContainer {
         CredentialsDatastore(dataStore = dataStore)
     }
 
-    override val defaultAuthenticationRepository by lazy {
-        AuthenticationRepository(defaultPosterRepository, defaultCredentialsDatastore)
+    override val defaultLoginUseCase: LoginUseCase by lazy {
+        LoginUseCase(
+            credentialsDatastore = defaultCredentialsDatastore,
+            posterRepository = defaultPosterRepository
+        )
+    }
+
+    override val defaultPostsUseCase by lazy {
+        PostsUseCase(posterRepository = defaultPosterRepository)
+    }
+
+    override val defaultAccountScreenUseCase by lazy {
+        AccountScreenUseCase(
+            loginUseCase = defaultLoginUseCase,
+            postsUseCase = defaultPostsUseCase
+        )
     }
 }
